@@ -44,8 +44,8 @@ describe('App', () => {
 
   it('render count when odd', async () => {
     const wrapper = factory()
-    wrapper.find('button').trigger('click')
-    await nextTick()
+    // shortcut to wait for next frame
+    await wrapper.find('button').trigger('click')
     expect(wrapper.html()).toContain('Count: 1. Count is odd.')
   })
 })
