@@ -48,7 +48,7 @@ describe('App', () => {
     expect(wrapper.html()).toContain('Count: 1. Count is odd.')
   })
 
-  it('show include post id', async () => {
+  it('should include post id', async () => {
     const wrapper = factory()
     expect(wrapper.html()).toContain('PostID: 1')
   })
