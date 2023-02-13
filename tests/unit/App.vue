@@ -10,12 +10,11 @@
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { computed, inject } from 'vue'
 
 export default {
   setup() {
-    const store = useStore()
+    const store = inject('store')
     const count = computed(() => store.state.count)
     const increment = () => {
      store.commit('increment')
