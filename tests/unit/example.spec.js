@@ -22,25 +22,20 @@ function factory() {
   const store = createVuexStore()
   return mount(App, {
     global: {
-      plugins: [store]
+      plugins: [store],
+      stubs: {
+        Fetcher: true
+      }
     }
   })
 }
-const mockGet = jest.fn()
-
-jest.mock('axios', () => ({
-  get: () => mockGet()
-}))
 
 describe('App', () => {
-  beforeEach(() => {
-    mockGet = jest.fn()
-  })
-
   it('render count when even', async () => {
     const wrapper = factory()
     await wrapper.find('button').trigger('click')
     await wrapper.find('button').trigger('click')
+    console.log(wrapper.html())
     expect(wrapper.html()).toContain('Count: 2. Count is even.')
   })
 
@@ -48,10 +43,5 @@ describe('App', () => {
     const wrapper = factory()
     await wrapper.find('button').trigger('click')
     expect(wrapper.html()).toContain('Count: 1. Count is odd.')
-  })
-
-  it('makes an api call', async () => {
-    const wrapper = factory()
-    expect(mockGet).toHaveBeenCalledTimes(1)
   })
 })

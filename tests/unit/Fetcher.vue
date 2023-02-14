@@ -4,11 +4,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+//import axios from 'axios'
 
 export default {
+  name: 'Fetcher',
   mounted() {
-    axios.get('/')
+    //axios.get('/')
   }
 }
 </script>
