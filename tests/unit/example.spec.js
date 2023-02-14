@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import App from './App.vue'
 import ClickableComponent from './ClickableComponent.vue'
+import ConditionalRenderingComponent from './ConditionalRenderingComponent.vue'
 import { createStore } from 'vuex'
 
 const createVuexStore = () => {
@@ -35,7 +36,6 @@ describe('App', () => {
     const wrapper = factory()
     await wrapper.find('button').trigger('click')
     await wrapper.find('button').trigger('click')
-    console.log(wrapper.html())
     expect(wrapper.html()).toContain('Count: 2. Count is even.')
   })
 
@@ -55,5 +55,28 @@ test('emits a count event with correct payload', async () => {
   await wrapper.find('button').trigger('click')
   expect(wrapper.emitted().count[1][0]).toBe(2)
   
-  console.log(wrapper.emitted())
+  //console.log(wrapper.emitted())
+})
+
+describe('ConditionalRenderingComponent tests', () => {
+  it('renders a profile link', () => {
+    const wrapper = mount(ConditionalRenderingComponent)
+    expect(wrapper.find('#profile').text()).toBe('My Profile')
+  })
+
+  it('renders an admin link', () => {
+    const wrapper = mount(ConditionalRenderingComponent, {
+      data() {
+        return {
+          admin: true
+        }
+      }
+    })
+    expect(wrapper.find('#admin').exists()).toBe(true)
+  })
+
+  it('does not render an admin link', () => {
+    const wrapper = mount(ConditionalRenderingComponent)
+    expect(wrapper.find('#admin').exists()).toBe(false)
+  })
 })
