@@ -7,15 +7,17 @@
   <div v-if="count % 2 !== 0">
     Count: {{ count }}. Count is odd.
   </div>
-  <div>PostID: {{ postId }}</div>
+  
+  <Fetcher/>
 </template>
 
 <script>
+import Fetcher from './Fetcher.vue'
+
 export default {
+  components: { Fetcher },
+
   computed: {
-    postId() {
-      return this.$route.params.postId
-    },
     count() {
       return this.$store.state.count
     }
