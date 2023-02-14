@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { reactive } from 'vue'
 import App from './App.vue'
+import ClickableComponent from './ClickableComponent.vue'
 import { createStore } from 'vuex'
 
 const createVuexStore = () => {
@@ -44,4 +44,16 @@ describe('App', () => {
     await wrapper.find('button').trigger('click')
     expect(wrapper.html()).toContain('Count: 1. Count is odd.')
   })
+})
+
+test('emits a count event with correct payload', async () => {
+  const wrapper = mount(ClickableComponent)
+  
+  await wrapper.find('button').trigger('click')
+  expect(wrapper.emitted().count[0][0]).toBe(1)
+
+  await wrapper.find('button').trigger('click')
+  expect(wrapper.emitted().count[1][0]).toBe(2)
+  
+  console.log(wrapper.emitted())
 })
